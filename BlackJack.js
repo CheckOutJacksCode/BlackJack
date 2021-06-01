@@ -51,8 +51,10 @@ const deal = (cardDeck) => {
     cpuHand.push(cardDeck.pop());
     console.log('Your Hand: ');
     console.log(yourHand);
+    console.log('');
     console.log('Computer Hand: ');
     console.log(cpuHand[1], '[Back of Card]');
+    console.log('');
     //.forEach(card => {console.log(card)}));
     //let userChoice = hitOrStay();
     //while(userChoice !== 'hit' && userChoice !== 'stay') {
@@ -93,15 +95,51 @@ const numberizeHand = () => {
     return yourTotal;
 }
 
+const numberizeCompHand = () => {
+    let compTotal = 0;
+    cpuHand.forEach(card => {
+        if (card[1] === 'A') {
+            compTotal += 11;
+        }
+        else if (typeof card[1] !== 'number') {
+            compTotal += 10;
+        } else {
+            compTotal += card[1];
+        }
+    })
+    return compTotal;
+}
+
 const dealOne = () => {
     let card = realDeck.pop();
     yourHand.push(card);
     return card;
 }
 
-//const compTurn = () => {
+const declareWinner = (cpuTotal) => {
+    if (cpuTotal === yourTotal) {
+        console.log('PUSH');
+    } else if(yourTotal > cpuTotal) {
+        console.log('YOU WIN, GUY.')
+    } else if(cpuTotal > yourTotal && cpuTotal <= 21) {
+        console.log('CPU WINS, YOU SUCK.')
+    } else {
+        console.log('CPU BUSTS, YOU WIN.');
+    }
+    return;
+}
 
-//}
+const compTurn = () => {
+    let compTotal = numberizeCompHand();
+    while(compTotal < yourTotal) {
+        let card = realDeck.pop();
+        cpuHand.push(card);
+        compTotal = numberizeCompHand();
+    }
+    console.log(cpuHand);
+    console.log(compTotal);
+    declareWinner(compTotal);
+}
 
 const deck = makeDeck();
 const shuffledDeck = shuffle(deck);
@@ -121,13 +159,34 @@ while(yourTotal < 21) {
 }
 if (yourTotal <= 21) {
     console.log(`Your total is: ${yourTotal}`);
+    compTurn();
 } else {
     console.log(`You busted, guy.`);
+    console.log('COMPUTER WINS');
 }
 
-const compTurn = () => {
-    
+/*const compTurn = () => {
+    let compTotal = numberizeCompHand();
+    while(compTotal < yourTotal) {
+        let card = realDeck.pop();
+        cpuHand.push(card);
+        compTotal = numberizeCompHand();
+    }
+    console.log(cpuHand);
+    console.log(compTotal);
+    declareWinner();
 }
+
+/*const compTurn = () => {
+    let compTotal = numberizeCompHand();
+    while(compTotal < yourTotal) {
+        let card = realDeck.pop();
+        cpuHand.push(card);
+        compTotal = numberizeCompHand();
+    }
+    console.log(cpuHand);
+    console.log(compTotal);
+}*/
 
 //console.log('yaaaa????');
 //const deck = makeDeck();
