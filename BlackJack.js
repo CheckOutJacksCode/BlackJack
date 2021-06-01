@@ -83,8 +83,9 @@ const numberizeHand = () => {
         }
         else if (typeof card[1] !== 'number') {
             yourTotal += 10;
+        } else {
+            yourTotal += card[1];
         }
-        yourTotal += card[1];
     })
     return yourTotal;
 }
@@ -111,6 +112,7 @@ while(yourTotal < 21) {
         break;
     }
 }
+console.log(yourTotal);
 console.log('yaaaa????');
 //const deck = makeDeck();
 //const shuffledDeck = shuffle(deck);
