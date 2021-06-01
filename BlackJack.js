@@ -47,26 +47,20 @@ const deal = (cardDeck) => {
     cpuHand.push(cardDeck.pop());
     console.log('Your Hand: ');
     console.log(yourHand)//.forEach(card => {console.log(card)}));
-    console.log(hitOrStay());
+    let userChoice = hitOrStay();
+    //while(userChoice !== 'hit' && userChoice !== 'stay') {
+    //    userChoice = hitOrStay();
+    //}
+    console.log(userChoice);
     //var yourChoice = readline('Do you want to hit or stay?');
 }       //console.log(yourChoice);
 const hitOrStay = () => {        //console.log(yourChoice);
-    const readline = require("readline");
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-    let userChoice;
-    rl.question("Do you want to hit or stay? ", function(choice) {
-        userChoice = choice;
-        console.log(userChoice);
-        if (userChoice !== 'hit' && userChoice !== 'stay') {
-            hitOrStay();
-        }
-        rl.close();
-        return userChoice;
-        //rl.close();
-    })
+    const prompt = require('prompt-sync')();
+    let userChoice = prompt('hit or stay, guy? ');
+    while(userChoice !== 'hit' && userChoice !== 'stay') {
+        userChoice = prompt('try again, guy. hit or stay. ');
+    }
+    return userChoice;
     //console.log(userChoice);
     //rl.on("close", function() {
     //    console.log("\nBYE BYE !!!");
