@@ -7,6 +7,14 @@
 
 //const deck = [['heart', 2], ['heart', 3], ['heart', 4], ['heart', 5], ['heart', 6], ['heart', 7], ['heart', 8]
 //['heart', 9], ['heart', 10], ['heart', 'J'], ['heart', 'Q'], ['heart', 'K'], ['heart', 'A']]
+
+let yourHand = [];
+let cpuHand = [];
+const deck = makeDeck();
+const shuffledDeck = shuffle(deck);
+const realDeck = deal(shuffledDeck);
+
+
 const makeDeck = () => {
     const deck = [];
     const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
@@ -39,19 +47,21 @@ const shuffle = cardDeck => {
 }
 
 const deal = (cardDeck) => {
-    let yourHand = [];
-    let cpuHand = [];
+    //let yourHand = [];
+    //let cpuHand = [];
     yourHand.push(cardDeck.pop());
     cpuHand.push(cardDeck.pop());
     yourHand.push(cardDeck.pop());
     cpuHand.push(cardDeck.pop());
     console.log('Your Hand: ');
     console.log(yourHand)//.forEach(card => {console.log(card)}));
-    let userChoice = hitOrStay();
+    //let userChoice = hitOrStay();
     //while(userChoice !== 'hit' && userChoice !== 'stay') {
     //    userChoice = hitOrStay();
     //}
-    console.log(userChoice);
+
+    //console.log(userChoice);
+    return cardDeck;
     //var yourChoice = readline('Do you want to hit or stay?');
 }       //console.log(yourChoice);
 const hitOrStay = () => {        //console.log(yourChoice);
@@ -68,6 +78,41 @@ const hitOrStay = () => {        //console.log(yourChoice);
     //});
 }
     //for each index in the array, newDeck[index] = cardDeck[]
+
+const numberizeHand = () => {
+    let yourTotal = 0;
+    yourHand.forEach(card => {
+        if (card[1] === 'A') {
+            card[1] = 11;
+        }
+        else if (typeof card[1] !== 'number') {
+            card[1] = 10;
+        }
+        yourTotal += card[1];
+    })
+    return yourTotal;
+}
+
+const dealOne = () => {
+    let card = realDeck.pop();
+    yourHand.push(card);
+    return card;
+}
+
+let yourTotal = numberizeHand();
+//let yourTotal = yourHand[0][1] + yourHand[1][1];
+while(yourTotal < 21) {
+    let choice = hitOrStay();
+    if (choice === 'hit') {
+        let newCard = dealOne();
+        yourTotal = numberizeHand();
+        //yourTotal += newCard[1]
+        console.log(yourHand);
+    } else {
+        break;
+    }
+}
+
 const deck = makeDeck();
 const shuffledDeck = shuffle(deck);
-deal(shuffledDeck);
+const realDeck = deal(shuffledDeck);
