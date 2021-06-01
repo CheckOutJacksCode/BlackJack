@@ -135,6 +135,9 @@ const compTurn = () => {
         let card = realDeck.pop();
         cpuHand.push(card);
         compTotal = numberizeCompHand();
+        if (compTotal > 21 && (cpuHand.forEach(card => {card.includes('A')}))) {
+            compTotal -= 10;
+        }
     }
     console.log(cpuHand);
     console.log(compTotal);
@@ -151,6 +154,9 @@ while(yourTotal < 21) {
     if (choice === 'hit') {
         let newCard = dealOne();
         yourTotal = numberizeHand();
+        if (yourTotal > 21 && yourHand.forEach(card => {card.includes('A')})) {
+            yourTotal -= 10;
+        }
         //yourTotal += newCard[1]
         console.log(yourHand);
     } else {
