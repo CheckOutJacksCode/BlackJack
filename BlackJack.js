@@ -49,6 +49,7 @@ const deal = (cardDeck) => {
     cpuHand.push(cardDeck.pop());
     yourHand.push(cardDeck.pop());
     cpuHand.push(cardDeck.pop());
+    console.log('');
     console.log('Your Hand: ');
     console.log(yourHand);
     console.log('');
@@ -68,6 +69,7 @@ const deal = (cardDeck) => {
 const hitOrStay = () => {        //console.log(yourChoice);
     const prompt = require('prompt-sync')();
     let userChoice = prompt('hit or stay, guy? ');
+    console.log('');
     while(userChoice !== 'hit' && userChoice !== 'stay') {
         userChoice = prompt('try again, guy. hit or stay. ');
     }
@@ -83,13 +85,23 @@ const hitOrStay = () => {        //console.log(yourChoice);
 const numberizeHand = () => {
     let yourTotal = 0;
     yourHand.forEach(card => {
-        if (card[1] === 'A') {
+        
+        if (card[1] === 'A' && yourTotal < 11) {
             yourTotal += 11;
+        }
+        else if (card[1] === 'A' && yourTotal > 10) {
+            yourTotal += 1
         }
         else if (typeof card[1] !== 'number') {
             yourTotal += 10;
+            if (yourTotal > 21 && (yourHand[0][1] === 'A' || yourHand[1][1] === 'A')) {
+                yourTotal -= 10;
+            }
         } else {
             yourTotal += card[1];
+            if (yourTotal > 21 && (yourHand[0][1] === 'A' || yourHand[1][1] === 'A')) {
+                yourTotal -=10;
+            }
         }
     })
     return yourTotal;
@@ -98,13 +110,22 @@ const numberizeHand = () => {
 const numberizeCompHand = () => {
     let compTotal = 0;
     cpuHand.forEach(card => {
-        if (card[1] === 'A') {
+        if (card[1] === 'A' && compTotal < 11) {
             compTotal += 11;
+        }
+        else if (card[1] === 'A' && compTotal > 10) {
+            compTotal += 1
         }
         else if (typeof card[1] !== 'number') {
             compTotal += 10;
+            if (compTotal > 21 && (cpuHand[0][1] === 'A' || cpuHand[1][1] === 'A')) {
+                compTotal -= 10;
+            }
         } else {
             compTotal += card[1];
+            if (compTotal > 21 && (cpuHand[0][1] === 'A' || cpuHand[1][1] === 'A')) {
+                compTotal -=10;
+            }
         }
     })
     return compTotal;
@@ -135,12 +156,13 @@ const compTurn = () => {
         let card = realDeck.pop();
         cpuHand.push(card);
         compTotal = numberizeCompHand();
-        if (compTotal > 21 && (cpuHand.forEach(card => {card.includes('A')}))) {
-            compTotal -= 10;
-        }
     }
+    console.log('');
+    console.log('CPU Hand: ')
     console.log(cpuHand);
-    console.log(compTotal);
+    console.log('')
+    console.log(`Computer Total: ${compTotal}`);
+    console.log('');
     declareWinner(compTotal);
 }
 
@@ -154,9 +176,6 @@ while(yourTotal < 21) {
     if (choice === 'hit') {
         let newCard = dealOne();
         yourTotal = numberizeHand();
-        if (yourTotal > 21 && yourHand.forEach(card => {card.includes('A')})) {
-            yourTotal -= 10;
-        }
         //yourTotal += newCard[1]
         console.log(yourHand);
     } else {
@@ -164,6 +183,7 @@ while(yourTotal < 21) {
     }
 }
 if (yourTotal <= 21) {
+    console.log('');
     console.log(`Your total is: ${yourTotal}`);
     compTurn();
 } else {
