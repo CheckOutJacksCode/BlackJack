@@ -10,10 +10,6 @@
 
 let yourHand = [];
 let cpuHand = [];
-const deck = makeDeck();
-const shuffledDeck = shuffle(deck);
-const realDeck = deal(shuffledDeck);
-
 
 const makeDeck = () => {
     const deck = [];
@@ -83,10 +79,10 @@ const numberizeHand = () => {
     let yourTotal = 0;
     yourHand.forEach(card => {
         if (card[1] === 'A') {
-            card[1] = 11;
+            yourTotal += 11;
         }
         else if (typeof card[1] !== 'number') {
-            card[1] = 10;
+            yourTotal += 10;
         }
         yourTotal += card[1];
     })
@@ -99,6 +95,9 @@ const dealOne = () => {
     return card;
 }
 
+const deck = makeDeck();
+const shuffledDeck = shuffle(deck);
+const realDeck = deal(shuffledDeck);
 let yourTotal = numberizeHand();
 //let yourTotal = yourHand[0][1] + yourHand[1][1];
 while(yourTotal < 21) {
@@ -112,7 +111,7 @@ while(yourTotal < 21) {
         break;
     }
 }
-
-const deck = makeDeck();
-const shuffledDeck = shuffle(deck);
-const realDeck = deal(shuffledDeck);
+console.log('yaaaa????');
+//const deck = makeDeck();
+//const shuffledDeck = shuffle(deck);
+//const realDeck = deal(shuffledDeck);
