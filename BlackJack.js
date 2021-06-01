@@ -50,7 +50,10 @@ const deal = (cardDeck) => {
     yourHand.push(cardDeck.pop());
     cpuHand.push(cardDeck.pop());
     console.log('Your Hand: ');
-    console.log(yourHand)//.forEach(card => {console.log(card)}));
+    console.log(yourHand);
+    console.log('Computer Hand: ');
+    console.log(cpuHand[1], '[Back of Card]');
+    //.forEach(card => {console.log(card)}));
     //let userChoice = hitOrStay();
     //while(userChoice !== 'hit' && userChoice !== 'stay') {
     //    userChoice = hitOrStay();
@@ -96,6 +99,10 @@ const dealOne = () => {
     return card;
 }
 
+//const compTurn = () => {
+
+//}
+
 const deck = makeDeck();
 const shuffledDeck = shuffle(deck);
 const realDeck = deal(shuffledDeck);
@@ -112,8 +119,17 @@ while(yourTotal < 21) {
         break;
     }
 }
-console.log(yourTotal);
-console.log('yaaaa????');
+if (yourTotal <= 21) {
+    console.log(`Your total is: ${yourTotal}`);
+} else {
+    console.log(`You busted, guy.`);
+}
+
+const compTurn = () => {
+    
+}
+
+//console.log('yaaaa????');
 //const deck = makeDeck();
 //const shuffledDeck = shuffle(deck);
 //const realDeck = deal(shuffledDeck);
